@@ -57,13 +57,13 @@ class ViewController: UIViewController {
         }
     }
     
-    //changes 'order' and 'buttonList' arrays, adds buttons; called in reset and viewDidLoad
+    //changes 'order' and 'buttonList' arrays, adds buttons; called in next, reset and viewDidLoad
     func randomizeOrder() {
         
         println("randomizing order")
         
         order = [Int]()
-        numplaces = 0
+        //numplaces = 0
         
         var array = [Int]()
         for i in 0...places.count-1 {
@@ -104,22 +104,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         randomizeOrder()
-        
-        /*
-        for (index, i) in enumerate(order) {
-            let(a,b) = places[i]
-            
-            var x : CGFloat = CGFloat(a)
-            var y : CGFloat = CGFloat(b)
-            
-            let button = UIButton.buttonWithType(UIButtonType.System) as! UIButton
-            buttonList.append(button)
-            button.frame = CGRectMake(x, y, 50, 50)
-            button.backgroundColor = UIColor.redColor()
-            self.view.addSubview(button)
-            
-        }
-*/
         
         drawsequence()
     }
@@ -174,21 +158,21 @@ class ViewController: UIViewController {
                 
             //if user has already repeated this level color changes to gray and test finishes
             else{
-                
+                /*
                 for (index, i) in enumerate(order) {
                     buttonList[index].backgroundColor = UIColor.darkGrayColor()
                 }
+*/
                 //account for delay when changing black back to red for most recently pressed button
                 delay(0.5) {
                     for (index, i) in enumerate(self.order) {
                         self.buttonList[index].backgroundColor = UIColor.darkGrayColor()
+                        self.resultLabel.text = "Spatial span: \(self.numplaces)"
+                        
+                        let timestamp = NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: .MediumStyle, timeStyle: .ShortStyle)
+                        self.dateLabel.text = timestamp
                     }
                 }
-                resultLabel.text = "Spatial span: \(numplaces)"
-                
-                let timestamp = NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: .MediumStyle, timeStyle: .ShortStyle)
-                dateLabel.text = timestamp
-                
             }
             
         }
@@ -200,19 +184,20 @@ class ViewController: UIViewController {
                 next()
             }
             else {
-                
+                /*
                 for (index, i) in enumerate(order) {
                     buttonList[index].backgroundColor = UIColor.darkGrayColor()
                 }
+*/
                 //account for delay when changing black back to red for most recently pressed button
                 delay(0.5) {
                     for (index, i) in enumerate(self.order) {
                         self.buttonList[index].backgroundColor = UIColor.darkGrayColor()
+                        self.resultLabel.text = "Spatial span: \(self.numplaces+1)"
+                        let timestamp = NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: .MediumStyle, timeStyle: .ShortStyle)
+                        self.dateLabel.text = timestamp
                     }
                 }
-                resultLabel.text = "Spatial span: \(numplaces+1)"
-                let timestamp = NSDateFormatter.localizedStringFromDate(NSDate(), dateStyle: .MediumStyle, timeStyle: .ShortStyle)
-                dateLabel.text = timestamp
             }
             
         }
@@ -223,9 +208,11 @@ class ViewController: UIViewController {
     //user messed up; replay same sequence
     func repeat(){
         //change color to gray to indicate mistake
+        /*
         for (index, i) in enumerate(order) {
             buttonList[index].backgroundColor = UIColor.lightGrayColor()
         }
+*/
         //account for delay when changing black back to red for most recently pressed button
         delay(0.5) {
             for (index, i) in enumerate(self.order) {
@@ -255,6 +242,7 @@ class ViewController: UIViewController {
             self.numRepeats = 0
             self.numplaces = self.numplaces + 1
             self.currpressed = 0
+            self.randomizeOrder()
             self.drawsequence()
         }
         
